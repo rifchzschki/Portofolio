@@ -1,1 +1,15 @@
-export const schemaTypes = []
+import profile from './profile'
+import experience from './experiences'
+import project from './projects'
+import blog from './blog'
+import education from './objects/education'
+import articleMarkdown from './objects/articleMarkdown'
+
+export const schemaTypes = [
+  profile,
+  experience,
+  project,
+  blog,
+  education,
+  articleMarkdown
+]
