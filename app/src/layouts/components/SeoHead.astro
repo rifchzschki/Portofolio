@@ -1,0 +1,114 @@
+---
+import SpeedInsights from "@vercel/speed-insights/astro";
+
+import "@fontsource-variable/inter";
+import interWoff2 from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
+import { AUTHOR_NAME, SITE_URL, LINKEDIN_URL, SITE_NAME } from "@/var";
+
+type LinkPreviewImage = {
+    url: string | null;
+    alt: string;
+};
+
+export interface Props {
+    title?: string;
+    description?: string;
+    canonicalUrl?: string;
+    linkPreviewImage?: LinkPreviewImage;
+}
+
+const defaultLinkPreviewImage: LinkPreviewImage = {
+    url: `${SITE_URL}link-preview.jpg`,
+    alt: AUTHOR_NAME,
+};
+
+const {
+    title,
+    description,
+    linkPreviewImage,
+    canonicalUrl = SITE_URL,
+} = Astro.props as Props;
+
+const finalLinkPreviewImage =
+    !linkPreviewImage || !linkPreviewImage.url
+        ? defaultLinkPreviewImage
+        : linkPreviewImage;
+
+const GENERATOR = (Astro as any)?.generator ?? "Astro";
+---
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    
+    <!-- CRITICAL: Theme Detection Script - Prevent FOUC -->
+    <script is:inline>
+        // Jalankan sebelum render untuk prevent flash
+        (function() {
+            const getTheme = () => {
+                // 1. Cek localStorage dulu
+                const saved = localStorage.getItem('theme');
+                if (saved) return saved;
+                
+                // 2. Fallback ke system preference
+                return window.matchMedia('(prefers-color-scheme: dark)').matches 
+                    ? 'dark' 
+                    : 'light';
+            };
+            
+            const theme = getTheme();
+            document.documentElement.setAttribute('data-theme', theme);
+            
+            // Update theme-color meta
+            const metaThemeColor = document.querySelector('meta[name="theme-color"]:not([media])');
+            if (!metaThemeColor) {
+                const meta = document.createElement('meta');
+                meta.name = 'theme-color';
+                meta.content = theme === 'dark' ? '#121212' : '#ffffff';
+                document.head.appendChild(meta);
+            }
+        })();
+    </script>
+    
+    <title>{title}</title>
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="description" content={description} />
+    <meta name="application-name" content={SITE_NAME} />
+    <meta name="generator" content={GENERATOR} />
+    <meta name="keywords" content="Rifki Virzya, Full-Stack Developer, Software Engineer, ITB, Institut Teknologi Bandung, Web Development, AI, Machine Learning, System Design, Competitive Programming, React, Node.js, TypeScript, Python, Portfolio, Informatics Engineering" />
+    <link rel="author" href={SITE_URL} />
+    <meta name="author" content={AUTHOR_NAME} />
+    <meta name="creator" content={AUTHOR_NAME} />
+    <meta name="category" content="technology" />
+    <link rel="sitemap" href="/sitemap-index.xml" /> 
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" /> 
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} /> 
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content="id_ID" />   <meta property="og:type" content="website" />
+
+    <meta property="og:image" content={finalLinkPreviewImage.url} />
+    <meta property="og:image:alt" content={finalLinkPreviewImage.alt} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    {LINKEDIN_URL && <link rel="me" href={LINKEDIN_URL} />}
+    {LINKEDIN_URL && <meta name="linkedin:profile" content={LINKEDIN_URL} />}
+    {LINKEDIN_URL && <meta property="og:see_also" content={LINKEDIN_URL} />}
+
+    <link
+        rel="preload"
+        as="font"
+        type="font/woff2"
+        href={interWoff2}
+        crossorigin="anonymous"
+    />
+
+    <!-- analitics -->
+    {import.meta.env.PROD && <SpeedInsights scriptSrc="/_si/script.js" />}
+</head>

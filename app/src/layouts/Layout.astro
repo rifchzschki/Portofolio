@@ -1,22 +1,26 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import "../styles/global.css";
+import ReactLayout from "../components/react-layout";
+import SeoHead, { type Props } from "./components/SeoHead.astro";
+import { PAGE_TITLE, PAGE_DESC } from "@/var";
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+const {
+    canonicalUrl,
+    linkPreviewImage
+} = Astro.props as Props;
+---
+<!DOCTYPE html>
+<html lang="en">
+  <SeoHead 
+    title={PAGE_TITLE}
+    description={PAGE_DESC}
+    canonicalUrl={canonicalUrl}
+    linkPreviewImage={linkPreviewImage}
+  />
+
+  <body>
+    <ReactLayout client:load>
+      <slot />
+    </ReactLayout>
+  </body>
+</html>

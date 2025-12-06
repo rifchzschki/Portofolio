@@ -1,0 +1,27 @@
+---
+import { EducationTimeline } from "@/components/education-timeline";
+import { SectionWrapper } from "@/components/section-wrapper";
+import Layout from "@/layouts/Layout.astro";
+
+---
+
+<Layout>
+  <SectionWrapper className="pt-8 md:pt-12" client:visible>
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="mb-12 text-center">
+        <h1 class="text-sm font-semibold uppercase tracking-wider text-primary">
+          Education
+        </h1>
+        <h2 class="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
+          Academic Journey
+        </h2>
+        <p class="mx-auto mt-4 max-w-2xl text-muted-foreground">
+          My educational background and the knowledge foundation that shapes
+          my approach to software engineering.
+        </p>
+      </div>
+
+      <EducationTimeline client:visible />
+    </div>
+  </SectionWrapper>
+</MainLayout>

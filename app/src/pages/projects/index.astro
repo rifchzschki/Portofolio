@@ -1,0 +1,28 @@
+---
+import { ProjectsGrid } from "@/components/project-grid";
+import { SectionWrapper } from "@/components/section-wrapper";
+import Layout from "@/layouts/Layout.astro";
+
+
+---
+
+<Layout >
+  <SectionWrapper className="pt-8 md:pt-12" client:visible>
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="mb-12 text-center">
+        <h1 class="text-sm font-semibold uppercase tracking-wider text-primary">
+          Projects
+        </h1>
+        <h2 class="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
+          Featured Work
+        </h2>
+        <p class="mx-auto mt-4 max-w-2xl text-muted-foreground">
+          A collection of projects that showcase my skills in building modern web 
+          applications and solving real-world problems.
+        </p>
+      </div>
+
+      <ProjectsGrid client:visible />
+    </div>
+  </SectionWrapper>
+</MainLayout>

@@ -12,12 +12,6 @@ export default {
       description: 'Short professional summary shown on homepage.'
     },
     {
-      name: 'education',
-      title: 'Education History',
-      type: 'array',
-      of: [{ type: 'education' }]
-    },
-    {
       name: 'socials',
       title: 'Social Links',
       type: 'array',
