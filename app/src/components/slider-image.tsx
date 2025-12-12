@@ -1,14 +1,13 @@
 import { getSanityImage } from "@/lib/sanity/sanityImage";
 import { motion } from "motion/react";
-import { useState } from "react";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import type { SanityImageProps } from "./sanity-image";
 
 import "swiper/css";
 import "swiper/css/pagination";
+import type { MediaSanityType } from "./project-grid";
 
-export default function ImageSlider({ images }: { images: SanityImageProps[] }) {
+export default function ImageSlider({ images }: { images: MediaSanityType[] }) {
   return (
     <Swiper
       modules={[Pagination]}
@@ -24,7 +23,7 @@ export default function ImageSlider({ images }: { images: SanityImageProps[] }) 
         let srcSet: string[] = [];
 
         if (img.asset) {
-          const built = getSanityImage(img.asset._ref, img.width, img.height);
+          const built = getSanityImage(img.asset._ref);
           src = built.src;
           srcSet = built.srcSet;
         }
@@ -34,8 +33,8 @@ export default function ImageSlider({ images }: { images: SanityImageProps[] }) 
             <motion.img
               src={src}
               srcSet={srcSet.length ? srcSet.join(", ") : undefined}
-              alt={img.alt ?? ""}
-              className={`h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 ${img.className ?? ""}`}
+              alt={""}
+              className={`h-full w-full object-cover transition-transform duration-300 group-hover:scale-105`}
               loading="lazy"
               decoding="async"
               initial={{ opacity: 0, scale: 0.98 }}

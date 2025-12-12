@@ -174,7 +174,7 @@ export function ProjectsGrid() {
       {/* All Projects Grid */}
       <div>
         <h3 className="mb-6 text-xl font-semibold">All Projects</h3>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="sm:flex md:grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projectsData.map((project, index) => (
             <motion.div
               key={project.id}
@@ -182,12 +182,13 @@ export function ProjectsGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
+              className={`${index !== projectsData.length-1 ? "pb-6":"pb-0"} md:pb-0`}
             >
               <Card
-                className="group h-full overflow-hidden border-border/50 transition-all hover:border-primary/50 hover:shadow-lg"
+                className="group flex w-full h-full overflow-hidden border-border/50 transition-all hover:border-primary/50 hover:shadow-lg"
                 onClick={() => setOpenDetail(project)}
               >
-                <div className="relative aspect-video overflow-hidden bg-muted">
+                <div className="relative w-full mx-auto aspect-video overflow-hidden bg-muted">
                   <ImageSlider
                     images={[project.thumbnail, ...(project.images ?? [])]}
                   />
