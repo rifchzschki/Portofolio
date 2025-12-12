@@ -11,7 +11,7 @@ export default defineCliConfig({
      * Learn more at https://www.sanity.io/docs/cli#auto-updates
      */
     autoUpdates: true,
-    appId: 'cjv383dgqzjjy67z721w2vej'
+    appId: process.env.SANITY_STUDIO_ID_DEPLOYMENT,
   },
   studioHost: 'rifkivirzya'
 })
