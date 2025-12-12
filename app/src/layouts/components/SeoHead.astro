@@ -83,9 +83,13 @@ const GENERATOR = (Astro as any)?.generator ?? "Astro";
     <meta name="category" content="technology" />
     <link rel="sitemap" href="/sitemap-index.xml" /> 
 
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/manifest.json" /> 
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="msapplication-config" content="/browserconfig.xml">
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -110,5 +114,5 @@ const GENERATOR = (Astro as any)?.generator ?? "Astro";
     />
 
     <!-- analitics -->
-    {import.meta.env.PROD && <SpeedInsights scriptSrc="/_si/script.js" />}
+    <!-- {import.meta.env.PROD && <SpeedInsights scriptSrc="/_si/script.js" />} -->
 </head>
