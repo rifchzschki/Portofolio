@@ -1,28 +1,77 @@
-export default {
+import { defineType, defineField } from 'sanity';
+
+export default defineType({
   name: 'experience',
   title: 'Experience',
   type: 'document',
   fields: [
-    { name: 'coverImage', title: 'Cover Image', type: 'image', options: { hotspot: true } },
-    { name: 'roleName', title: 'Role Name', type: 'string' },
-    { name: 'organization', title: 'Organization', type: 'string' },
-    { name: 'description', title: 'Description', type: 'text' },
-    { name: 'yearMonthFrom', title: 'Start (YYYY-MM)', type: 'string' },
-    { name: 'yearMonthTo', title: 'End (YYYY-MM)', type: 'string' },
-    { name: 'isITrelated', title: 'IT Related?', type: 'boolean' },
-    {
-      name: 'techStack',
-      title: 'Tech Stack',
+    defineField({
+      name: 'type',
+      title: 'Experience Type',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'IT', value: 'it' },
+          { title: 'Non IT', value: 'non-it' }
+        ],
+        layout: 'radio'
+      }
+    }),
+    defineField({
+      name: 'company',
+      title: 'Company',
+      type: 'string',
+      validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      name: 'role',
+      title: 'Role',
+      type: 'string',
+      validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      name: 'location',
+      title: 'Location',
+      type: 'string'
+    }),
+    defineField({
+      name: 'startDate',
+      title: 'Start Date (MM YYYY)',
+      type: 'string'
+    }),
+    defineField({
+      name: 'endDate',
+      title: 'End Date (MM YYYY)',
+      type: 'string'
+    }),
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text'
+    }),
+    defineField({
+      name: 'achievements',
+      title: 'Achievements',
       type: 'array',
       of: [{ type: 'string' }]
-    },
-    {
-      name: 'article',
-      title: 'Detailed Article (.md)',
-      type: 'articleMarkdown'
-    }
+    }),
+    defineField({
+      name: 'technologies',
+      title: 'Technology Stack',
+      type: 'array',
+      of: [{ type: 'string' }],
+    }),
+    defineField({
+      name: 'softSkills',
+      title: 'Soft Skills',
+      type: 'array',
+      of: [{ type: 'string' }],
+    })
   ],
   preview: {
-    select: { title: 'roleName', subtitle: 'organization', media: 'coverImage' }
+    select: {
+      title: 'role',
+      subtitle: 'company'
+    }
   }
-}
+});

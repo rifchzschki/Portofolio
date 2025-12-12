@@ -44,7 +44,6 @@ const skillCategories: SkillCategory[] = [
       { name: "Git", icon: "⎇" },
       { name: "Docker", icon: "🐳" },
       { name: "Linux", icon: "🐧" },
-      { name: "AWS", icon: "☁" },
       { name: "CI/CD", icon: "⟲" },
       { name: "Vercel", icon: "▲" },
     ],

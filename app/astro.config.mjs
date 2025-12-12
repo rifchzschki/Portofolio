@@ -9,7 +9,7 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://rifkivirzya.vercel.app",
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [/** @type {any} */ (tailwindcss())],
   },
   integrations: [react(), sitemap()],
 });

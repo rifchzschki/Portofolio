@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { client } from "@/lib/sanity/sanity"
+import { allExperienceData } from "@/lib/sanity/queries/experience"
 
 type Experience = {
   id: string
@@ -20,90 +22,7 @@ type Experience = {
   softSkills?: string[]
 }
 
-const experienceData: Experience[] = [
-  {
-    id: "1",
-    type: "it",
-    company: "TechCorp Indonesia",
-    role: "Software Engineering Intern",
-    location: "Jakarta, Indonesia",
-    startDate: "Jun 2024",
-    endDate: "Aug 2024",
-    description:
-      "Worked on the core product team to develop and maintain web applications used by thousands of users daily.",
-    achievements: [
-      "Developed RESTful APIs that improved data retrieval speed by 40%",
-      "Implemented automated testing reducing bug reports by 25%",
-      "Collaborated with senior engineers on microservices architecture",
-      "Participated in code reviews and agile ceremonies",
-    ],
-    technologies: ["React", "Node.js", "PostgreSQL", "Docker", "AWS"],
-  },
-  {
-    id: "2",
-    type: "it",
-    company: "StartupXYZ",
-    role: "Frontend Developer (Part-time)",
-    location: "Remote",
-    startDate: "Jan 2024",
-    endDate: "May 2024",
-    description: "Built responsive web interfaces for an early-stage fintech startup.",
-    achievements: [
-      "Created reusable component library saving 30+ development hours",
-      "Optimized web vitals improving LCP by 50%",
-      "Integrated third-party payment APIs",
-    ],
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Stripe"],
-  },
-  {
-    id: "3",
-    type: "it",
-    company: "University IT Department",
-    role: "Student Developer",
-    location: "Jakarta, Indonesia",
-    startDate: "Sep 2022",
-    endDate: "Dec 2023",
-    description: "Maintained and enhanced internal university systems and portals.",
-    achievements: [
-      "Redesigned student portal UI improving user satisfaction by 35%",
-      "Built attendance tracking system for 5,000+ students",
-      "Documented legacy codebase for future maintenance",
-    ],
-    technologies: ["PHP", "Laravel", "MySQL", "Vue.js"],
-  },
-  {
-    id: "4",
-    type: "non-it",
-    company: "Youth Leadership Organization",
-    role: "Project Coordinator",
-    location: "Jakarta, Indonesia",
-    startDate: "Mar 2023",
-    endDate: "Present",
-    description: "Led community initiatives and coordinated volunteer teams for social impact projects.",
-    achievements: [
-      "Managed team of 15 volunteers across 3 project streams",
-      "Organized tech literacy workshops for 200+ underprivileged students",
-      "Secured sponsorships worth IDR 50M for community programs",
-    ],
-    softSkills: ["Leadership", "Project Management", "Public Speaking", "Fundraising"],
-  },
-  {
-    id: "5",
-    type: "non-it",
-    company: "Campus Debate Club",
-    role: "Vice President",
-    location: "Jakarta, Indonesia",
-    startDate: "Aug 2022",
-    endDate: "Jul 2023",
-    description: "Organized debate tournaments and training sessions for club members.",
-    achievements: [
-      "Grew club membership by 60% through recruitment campaigns",
-      "Coordinated national-level debate competition with 50+ teams",
-      "Mentored junior debaters achieving top 8 in national championships",
-    ],
-    softSkills: ["Communication", "Team Building", "Event Management", "Mentorship"],
-  },
-]
+const experienceData: Experience[] = await client.fetch(allExperienceData);
 
 export function ExperienceSection() {
   const [activeTab, setActiveTab] = useState<"it" | "non-it">("it")

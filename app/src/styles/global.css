@@ -3,7 +3,6 @@
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-/* <CHANGE> Custom brand colors for portfolio */
 :root {
   /* Brand Colors */
   --moss-green: #47624f;
@@ -105,4 +104,31 @@ html.lenis {
 
 .lenis.lenis-smooth {
   scroll-behavior: auto;
+}
+
+/* Swiper Pagination — Light Mode */
+.swiper-pagination-bullet {
+  background-color: var(--muted-foreground);
+  opacity: 0.6;
+  width: 7px;
+  height: 7px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: var(--primary);
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* Swiper Pagination — Dark Mode */
+[data-theme="dark"] .swiper-pagination-bullet {
+  background-color: var(--muted-foreground);
+  opacity: 0.5;
+}
+
+[data-theme="dark"] .swiper-pagination-bullet-active {
+  background-color: var(--primary);
+  opacity: 1;
+  transform: scale(1.2);
 }
