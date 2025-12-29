@@ -12,6 +12,9 @@ import { client } from "@/lib/sanity/sanity";
 import { ChevronLeft, ChevronRight, ExternalLink, Github } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
+import { ExpandableBadgeGroup } from "./ExpandableBadgeGroup";
+import { ExpandableText } from "./ExpandableText";
+import { RowLimitedBadgeGroup } from "./RowLimitedBadgeGroup";
 import { ProjectDetail } from "./project-detail-card";
 import ImageSlider from "./slider-image";
 
@@ -85,26 +88,33 @@ export function ProjectsGrid() {
                 <h4 className="text-2xl font-bold">
                   {featuredProjects[currentFeatured].title}
                 </h4>
-                <p className="mt-2 text-muted-foreground">
-                  {featuredProjects[currentFeatured].description}
-                </p>
+                <ExpandableText
+                  className="mt-2 text-muted-foreground"
+                  text={featuredProjects[currentFeatured].description}
+                  lines={2}
+                />
                 <div className="mt-4">
                   <p className="text-sm">
                     <span className="font-medium text-primary">Problem:</span>{" "}
-                    {featuredProjects[currentFeatured].problem}
+                    <ExpandableText
+                      text={featuredProjects[currentFeatured].problem}
+                      lines={2}
+                    />
                   </p>
                   <p className="mt-2 text-sm">
                     <span className="font-medium text-primary">Solution:</span>{" "}
-                    {featuredProjects[currentFeatured].solution}
+                    <ExpandableText
+                      text={featuredProjects[currentFeatured].solution}
+                      lines={2}
+                    />
                   </p>
                 </div>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {featuredProjects[currentFeatured].techStack.map((tech) => (
-                    <Badge key={tech} variant="secondary">
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
+                <ExpandableBadgeGroup
+                  items={featuredProjects[currentFeatured].techStack}
+                  maxRows={2}
+                  className="mt-4"
+                  badgeVariant="secondary"
+                />
                 <div className="mt-6 flex gap-3">
                   {featuredProjects[currentFeatured].githubUrl && (
                     <Button asChild variant="outline" size="sm">
@@ -182,7 +192,9 @@ export function ProjectsGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
-              className={`${index !== projectsData.length-1 ? "pb-6":"pb-0"} md:pb-0`}
+              className={`${
+                index !== projectsData.length - 1 ? "pb-6" : "pb-0"
+              } md:pb-0`}
             >
               <Card
                 className="group flex w-full h-full overflow-hidden border-border/50 transition-all hover:border-primary/50 hover:shadow-lg"
@@ -204,21 +216,14 @@ export function ProjectsGrid() {
                     {project.description}
                   </p>
                 </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.techStack.slice(0, 4).map((tech) => (
-                      <Badge key={tech} variant="outline" className="text-xs">
-                        {tech}
-                      </Badge>
-                    ))}
-                    {project.techStack.length > 4 && (
-                      <Badge variant="outline" className="text-xs">
-                        +{project.techStack.length - 4}
-                      </Badge>
-                    )}
-                  </div>
+                <CardContent className="grow">
+                  <RowLimitedBadgeGroup
+                    items={project.techStack}
+                    maxRows={2}
+                    className="mt-2"
+                  />
                 </CardContent>
-                <CardFooter className="gap-2">
+                <CardFooter className="gap-2 flex-none">
                   {project.githubUrl && (
                     <Button
                       asChild
