@@ -1,10 +1,11 @@
-import { useState } from "react"
-import { motion, AnimatePresence } from "motion/react"
-import { Menu, X } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { ThemeToggle } from "@/components/theme-toggle"
-import { Button } from "@/components/ui/button"
-import { usePathname } from "@/context/router-context"
+import { ThemeToggle } from "@/components/theme-toggle";
+import { Button } from "@/components/ui/button";
+import { usePathname } from "@/context/router-context";
+import { cn } from "@/lib/utils";
+import { Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { useState } from "react";
+import { SnowfallToggle } from "./snow-toggle";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -13,11 +14,11 @@ const navLinks = [
   { href: "/experience", label: "Experience" },
   { href: "/blog", label: "Blog" },
   { href: "#contact", label: "Contact" },
-]
+];
 
 export function Header() {
   const pathname = usePathname();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
@@ -26,7 +27,9 @@ export function Header() {
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-sm">
             RV
           </div>
-          <span className="hidden font-semibold sm:inline-block">Rifki Virzya</span>
+          <span className="hidden font-semibold sm:inline-block">
+            Rifki Virzya
+          </span>
         </a>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -36,7 +39,9 @@ export function Header() {
               href={link.href}
               className={cn(
                 "px-3 py-2 text-sm font-medium transition-colors rounded-md hover:bg-muted",
-                pathname === link.href ? "text-foreground" : "text-muted-foreground hover:text-foreground",
+                pathname === link.href
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
               )}
             >
               {link.label}
@@ -45,6 +50,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <SnowfallToggle />
           <ThemeToggle />
           <Button
             variant="ghost"
@@ -53,7 +59,11 @@ export function Header() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
           </Button>
         </div>
       </div>
@@ -74,7 +84,9 @@ export function Header() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={cn(
                     "px-3 py-2 text-sm font-medium transition-colors rounded-md hover:bg-muted",
-                    pathname === link.href ? "text-foreground bg-muted" : "text-muted-foreground hover:text-foreground",
+                    pathname === link.href
+                      ? "text-foreground bg-muted"
+                      : "text-muted-foreground hover:text-foreground"
                   )}
                 >
                   {link.label}
@@ -85,5 +97,5 @@ export function Header() {
         )}
       </AnimatePresence>
     </header>
-  )
+  );
 }

@@ -1,8 +1,9 @@
 ---
-import "../styles/global.css";
+import { PAGE_DESC, PAGE_TITLE } from "@/var";
 import ReactLayout from "../components/react-layout";
+import SnowfallCanvas from "../components/SnowfallCanvas";
+import "../styles/global.css";
 import SeoHead, { type Props } from "./components/SeoHead.astro";
-import { PAGE_TITLE, PAGE_DESC } from "@/var";
 
 const {
     canonicalUrl,
@@ -20,7 +21,8 @@ const {
 
   <body>
     <ReactLayout client:load>
-      <slot />
+      <SnowfallCanvas client:load/>
+        <slot />
     </ReactLayout>
   </body>
 </html>

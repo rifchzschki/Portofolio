@@ -1,3 +1,4 @@
+import { useSnowfallStore } from "@/stores/snowfall-store";
 import { createContext, useContext, useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
@@ -13,12 +14,11 @@ const ThemeContext = createContext<ThemeContextValue>({
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("light");
+  const initSnow = useSnowfallStore((s) => s.initFromTheme);
 
   useEffect(() => {
-    // 1️⃣ Cek preferensi user di localStorage dulu
     const saved = localStorage.getItem("theme") as Theme | null;
 
-    // 2️⃣ Fallback ke preferensi system OS
     const system = window.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
       : "light";
@@ -26,24 +26,23 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const initial = saved ?? system;
 
     setThemeState(initial);
-    console.log("tema",initial);
+    initSnow(initial);
+    console.log("rerender", initial);
     document.documentElement.setAttribute("data-theme", initial);
 
-    // 3️⃣ Update otomatis jika OS berubah
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     const handler = () => {
       if (!saved) {
-        const systemTheme =
-          media.matches ? "dark" : "light";
+        const systemTheme = media.matches ? "dark" : "light";
         setThemeState(systemTheme);
-        console.log("tema sistem",systemTheme)
+        console.log("tema sistem", systemTheme);
         document.documentElement.setAttribute("data-theme", systemTheme);
       }
     };
 
     media.addEventListener("change", handler);
     return () => media.removeEventListener("change", handler);
-  }, []);
+  }, [theme]);
 
   function setTheme(next: Theme) {
     setThemeState(next);
