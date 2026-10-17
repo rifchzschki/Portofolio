@@ -21,7 +21,7 @@ export const useSnowfallStore = create<SnowfallState>()(
         if (initialized === theme) return;
 
         set({
-          enabled: theme === "dark",
+          enabled: false,
           initialized: theme,
         });
       },
